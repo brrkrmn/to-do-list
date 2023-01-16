@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+/*layout*/
 body {
     margin: 0px;
     padding: 0px;
@@ -51,10 +52,13 @@ body {
 }
 
 .task-container {
+    padding: 20px;
     min-width: 618.570px;
     flex-basis: 60%;
     border-radius: 8px;
     box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
+    display: flex;
+    flex-direction: column;
 }
 
 .editor {
@@ -63,4 +67,88 @@ body {
     background-color: #EAE0DA;
     border-radius: 8px;
     box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
+}
+
+/*task container*/
+.task-container-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #3a464b;
+}
+
+.task-box {
+    margin: 20px 0px;
+    height: 78%;
+    overflow:scroll;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.add-task-button {
+    width: 40px;
+    height: 40px;
+    align-self: flex-end;
+
+    background-color: #F7F5EB;
+    background-image: url(./images/plus.svg);
+    border: 1px solid #EAC7C7;
+    border-radius: 50%;
+}
+
+.add-task-button:hover {
+    background-color:#EAC7C7;
+}
+
+/*task elements*/
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.checkbox {
+    width: 26px;
+    height: 26px;
+
+    background-color: #F7F5EB;
+    border: 1px solid #EAC7C7;
+    border-radius: 50%;
+}
+
+.checkbox:hover {
+    background-image: url('./images/tick.svg');
+    background-color: #EAC7C7;
+}
+
+.task {
+    flex-grow: 1;
+    height: 40px;
+    padding-left: 20px;
+    border-radius: 8px;
+    background-color: #aec7d2;
+
+    color: #3a464b;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.task:hover {
+    background-color: #99bdcb;
+}
+
+.delete-task-button {
+    height: 26px;
+    width: 26px;
+    background-image: url('./images/close.svg');
+    background-color: #F7F5EB;
+    border-radius: 50%;
+    border-style: none;
+}
+
+.delete-task-button:hover {
+    border: 1px solid #EAC7C7;
 }
