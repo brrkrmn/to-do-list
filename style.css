@@ -46,9 +46,15 @@ body {
 .sidebar {
     min-width: 209.875px;
     flex-basis: 18%;
+    padding: 20px 10px;
+
     background-color: #EAE0DA;
     border-radius: 8px;
     box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .task-container {
@@ -151,4 +157,54 @@ body {
 
 .delete-task-button:hover {
     border: 1px solid #EAC7C7;
+}
+
+/*sidebar*/
+.sidebar-item {
+    height: 30px;
+    padding: 0px;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    border-style: none;
+    background: #EAE0DA;
+    border-radius: 8px;
+
+    font-size: 18px;
+    font-family: 'Indie Flower', cursive;
+    color:#55666e;
+}
+
+.sidebar-item:hover {
+    background: #dacbc2;
+}
+
+.sidebar-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.sidebar-project-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    color: #55666e;
+    font-size:20px;
+    font-weight: 600;
+}
+
+.add-project-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.project {
+    margin-left: 15px;
+    padding-left: 4px;
 }
