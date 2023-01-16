@@ -2,17 +2,21 @@
 body {
     margin: 0px;
     padding: 0px;
+
     font-family: 'Indie Flower', cursive;
     background-color: #F7F5EB;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+
 }
 
 .header {
-    padding-left: 40px;
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: 60px;
+    padding-left: 40px;
+
     background-color: #EAC7C7;
+
     display: flex;
     align-items: center;
     gap: 4px;
@@ -30,34 +34,33 @@ body {
 }
 
 .content {
+    margin-top: 80px;
+    margin-bottom: 20px;
     padding: 0px 20px;
+    height: 86vh;
     display: flex;
-    justify-content: stretch;
+    gap: 20px;
 }
 
 .sidebar {
+    min-width: 209.875px;
     flex-basis: 18%;
-    flex-shrink: 0;
-    height: 680px;
     background-color: #EAE0DA;
     border-radius: 8px;
+    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
 }
 
 .task-container {
+    min-width: 618.570px;
     flex-basis: 60%;
-    flex-shrink: 0;
+    border-radius: 8px;
+    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
 }
 
 .editor {
-    flex-basis: 22%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.edit-box {
-    width: 280px;
-    height: 400px;
+    min-width: 277.555px;
+    flex-basis: 20%;
     background-color: #EAE0DA;
     border-radius: 8px;
+    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
 }
