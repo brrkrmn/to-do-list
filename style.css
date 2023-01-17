@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
-/*layout*/
+
 body {
     margin: 0px;
     padding: 0px;
@@ -9,6 +9,7 @@ body {
 
 }
 
+/*header*/
 .header {
     position: fixed;
     top: 0;
@@ -34,6 +35,7 @@ body {
     color: #55666e;
 }
 
+/*sidebar*/
 .content {
     margin-top: 80px;
     margin-bottom: 20px;
@@ -57,6 +59,57 @@ body {
     gap: 8px;
 }
 
+.sidebar-item {
+    height: 30px;
+    padding: 0px;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    border-style: none;
+    background: #EAE0DA;
+    border-radius: 8px;
+
+    font-size: 18px;
+    font-family: 'Indie Flower', cursive;
+    color:#55666e;
+}
+
+.sidebar-item:hover {
+    background: #dacbc2;
+}
+
+.sidebar-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.sidebar-project-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-title {
+    color: #55666e;
+    font-size:20px;
+    font-weight: 600;
+}
+
+.add-project-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.project {
+    margin-left: 15px;
+    padding-left: 4px;
+}
+
+
+/*task container*/
 .task-container {
     padding: 20px;
     min-width: 618.570px;
@@ -67,9 +120,6 @@ body {
     flex-direction: column;
 }
 
-
-
-/*task container*/
 .task-container-title {
     font-size: 30px;
     font-weight: 600;
@@ -102,7 +152,7 @@ body {
     box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
 }
 
-/*task elements*/
+/*task elements//task-box*/
 .task-item {
     display: flex;
     align-items: center;
@@ -153,58 +203,9 @@ body {
     border: 1px solid #EAC7C7;
 }
 
-/*sidebar*/
-.sidebar-item {
-    height: 30px;
-    padding: 0px;
-
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    border-style: none;
-    background: #EAE0DA;
-    border-radius: 8px;
-
-    font-size: 18px;
-    font-family: 'Indie Flower', cursive;
-    color:#55666e;
-}
-
-.sidebar-item:hover {
-    background: #dacbc2;
-}
-
-.sidebar-icon {
-    width: 28px;
-    height: 28px;
-}
-
-.sidebar-project-container {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-title {
-    color: #55666e;
-    font-size:20px;
-    font-weight: 600;
-}
-
-.add-project-button {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.project {
-    margin-left: 15px;
-    padding-left: 4px;
-}
-
 /*editor form*/
 .editor {
+    visibility: hidden;
     min-width: 277.555px;
     flex-basis: 20%;
     padding: 20px;
@@ -278,9 +279,10 @@ body {
     background-color: #EAE0DA;
     border-style: none;
     border-radius: 8px;
-    box-shadow: 5px 5px 15px -5px rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 15px -8px rgba(0,0,0,0.75);
 }
 
 .form-buttons button:hover{
     background-color: #d6b5b5;
+    box-shadow: 3px 3px 15px -10px rgba(0,0,0,0.75)inset;
 }

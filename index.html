@@ -63,16 +63,16 @@
                 </div>
                 <div class="task-priority">
                     <label for="task-priority">Priority:</label>
-                    <select name="priority-degrees">
+                    <select name="task-priority" id="task-priority">
                         <option value="high">High</option>
                         <option value="medium">Medium</option>
                         <option value="low">Low</option>
                     </select>
                 </div>
-                <textarea placeholder="Description" class="task-description"></textarea>
+                <textarea placeholder="Description" class="task-description" id="task-description"></textarea>
                 <div class="form-buttons">
-                    <button type="submit">Add</button>
-                    <button type="button">Delete</button>
+                    <button type="submit" class="save-form-button">Save</button>
+                    <button type="button" class="delete-form-button">Delete</button>
                 </div>
             </form>
         </div>
