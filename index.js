@@ -74,6 +74,7 @@ function createTaskItem(task) {
 
     addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
+    addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
 }
 
 function addTaskToTaskBox(taskTitleIndicator, task) {
@@ -90,6 +91,20 @@ function addTask() {
 function addEventListenerToDeleteTaskButton(deleteTaskButton) {
     deleteTaskButton.addEventListener("click", () => {
         deleteTaskButton.parentElement.remove();
+    })
+}
+
+function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement) {
+    checkbox.addEventListener("click", () => {
+        if (!checkbox.classList.contains("checkbox-complete")) {
+            checkbox.classList.add("checkbox-complete");
+            taskTitleIndicator.classList.add("title-complete");
+            taskElement.style.backgroundColor = "lightGray";
+        } else {
+            checkbox.classList.remove("checkbox-complete");
+            taskTitleIndicator.classList.remove("title-complete");
+            taskElement.style.backgroundColor = "#aec7d2";
+        }
     })
 }
 

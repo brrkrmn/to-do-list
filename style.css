@@ -174,6 +174,16 @@ body {
     background-color: #EAC7C7;
 }
 
+.checkbox-complete {
+    background-image: url('./images/tick.svg');
+    background-color: #EAC7C7;
+}
+
+.title-complete {
+    text-decoration: line-through;
+    text-decoration-color: #f1bbbb;
+}
+
 .task {
     flex-grow: 1;
     width: 100%;
