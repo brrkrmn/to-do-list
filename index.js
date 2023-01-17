@@ -63,19 +63,34 @@ function createTaskItem(task) {
     const deleteTaskButton = document.createElement("button");
     deleteTaskButton.classList.add("delete-task-button");
 
+    const taskTitleIndicator = document.createElement("div");
+    taskTitleIndicator.classList.add("task-title-indicator");
+
+    const priorityIndicator = document.createElement("button");
+    priorityIndicator.classList.add("priority-indicator");
+
     taskItem.append(checkbox, taskElement, deleteTaskButton);
-    addTaskToTaskBox(taskElement, task);
+    taskElement.append(taskTitleIndicator, priorityIndicator);
+
+    addTaskToTaskBox(taskTitleIndicator, task);
+    addEventListenerToDeleteTaskButton(deleteTaskButton);
 }
 
-function addTaskToTaskBox(taskElement, task) {
+function addTaskToTaskBox(taskTitleIndicator, task) {
     console.log(task);
-    taskElement.textContent = task.title;
+    taskTitleIndicator.textContent = task.title;
 }
 
 function addTask() {
     addEventListenerToAddTaskButton();
     addEventListenerToDeleteFormButton();
     addEventListenerToSaveFormButton();
+}
+
+function addEventListenerToDeleteTaskButton(deleteTaskButton) {
+    deleteTaskButton.addEventListener("click", () => {
+        deleteTaskButton.parentElement.remove();
+    })
 }
 
 addTask();
