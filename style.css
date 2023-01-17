@@ -67,13 +67,7 @@ body {
     flex-direction: column;
 }
 
-.editor {
-    min-width: 277.555px;
-    flex-basis: 20%;
-    background-color: #EAE0DA;
-    border-radius: 8px;
-    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
-}
+
 
 /*task container*/
 .task-container-title {
@@ -105,7 +99,7 @@ body {
 }
 
 .add-task-button:hover {
-    background-color:#EAC7C7;
+    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
 }
 
 /*task elements*/
@@ -207,4 +201,86 @@ body {
 .project {
     margin-left: 15px;
     padding-left: 4px;
+}
+
+/*editor form*/
+.editor {
+    min-width: 277.555px;
+    flex-basis: 20%;
+    padding: 20px;
+    height: fit-content;
+
+    background-color: #EAE0DA;
+    border-radius: 8px;
+    box-shadow: 7px 7px 14px #a9a9a9, -7px -7px 14px #f8f6ee;
+    display: flex;
+    justify-content: center;
+}
+
+.editor-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.task-name,
+.task-due,
+.task-due input,
+.task-priority,
+.task-priority select,
+.task-description {
+    box-sizing: border-box;
+    font-family: 'Indie Flower', cursive;
+    color: #3a464b;
+    font-size: 18px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.task-name {
+    width: 100%;
+    background-color: #EAE0DA;
+
+    border-style: none;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.task-due input,
+.task-priority select,
+.task-description {
+    padding: 0px 4px;
+    background-color: #dacbc2;
+    border-style: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+.task-description {
+    min-height: 100px;
+    max-height: 100%;
+    resize: none;
+}
+
+.form-buttons {
+    align-self:center;
+}
+
+.form-buttons button {
+    height: 36px;
+    width: 80px;
+
+    font-family: 'Indie Flower', cursive;
+    font-size: 20px;
+    text-align: center;
+    color: #3a464b;
+
+    background-color: #EAE0DA;
+    border-style: none;
+    border-radius: 8px;
+    box-shadow: 5px 5px 15px -5px rgba(0,0,0,0.75);
+}
+
+.form-buttons button:hover{
+    background-color: #d6b5b5;
 }
