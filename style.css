@@ -210,6 +210,16 @@ body {
     background-color: #99bdcb;
 }
 
+.task-complete {
+    background-color: lightgray;
+}
+
+.task-complete:hover {
+    background-color: rgb(175, 174, 174);
+}
+
+
+
 .priority-indicator-low {
     width: 20px;
     height: 20px;

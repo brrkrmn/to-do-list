@@ -125,11 +125,11 @@ function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement) {
         if (!checkbox.classList.contains("checkbox-complete")) {
             checkbox.classList.add("checkbox-complete");
             taskTitleIndicator.classList.add("title-complete");
-            taskElement.style.backgroundColor = "lightGray";
+            taskElement.classList.add("task-complete");
         } else {
             checkbox.classList.remove("checkbox-complete");
             taskTitleIndicator.classList.remove("title-complete");
-            taskElement.style.backgroundColor = "#aec7d2";
+            taskElement.classList.remove("task-complete");
         }
     })
 }
