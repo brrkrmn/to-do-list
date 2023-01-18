@@ -67,7 +67,7 @@ function createTaskItem(task) {
     taskTitleIndicator.classList.add("task-title-indicator");
 
     const priorityIndicator = document.createElement("button");
-    priorityIndicator.classList.add("priority-indicator");
+    checkPriority(task, priorityIndicator);
 
     taskItem.append(checkbox, taskElement, deleteTaskButton);
     taskElement.append(taskTitleIndicator, priorityIndicator);
@@ -75,6 +75,16 @@ function createTaskItem(task) {
     addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
+}
+
+function checkPriority(task, priorityIndicator) {
+    if (task.priority === "low") {
+        priorityIndicator.classList.add("priority-indicator-low");
+    } else if (task.priority === "medium") {
+        priorityIndicator.classList.add("priority-indicator-medium");
+    } else {
+        priorityIndicator.classList.add("priority-indicator-high");
+    }
 }
 
 function addTaskToTaskBox(taskTitleIndicator, task) {
