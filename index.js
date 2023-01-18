@@ -66,15 +66,31 @@ function createTaskItem(task) {
     const taskTitleIndicator = document.createElement("div");
     taskTitleIndicator.classList.add("task-title-indicator");
 
+    const dateIndicator = document.createElement("div");
+    dateIndicator.classList.add("date-indicator");
+    findDaysLeft(task, dateIndicator);
+
     const priorityIndicator = document.createElement("button");
     checkPriority(task, priorityIndicator);
 
     taskItem.append(checkbox, taskElement, deleteTaskButton);
-    taskElement.append(taskTitleIndicator, priorityIndicator);
+    taskElement.append(taskTitleIndicator, priorityIndicator, dateIndicator);
 
     addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
+}
+
+function findDaysLeft(task, dateIndicator) {
+    const currentDate = new Date();
+    const dueDate = new Date(task.due);
+    let daysLeft = dueDate.getTime() - currentDate.getTime();
+    daysLeft = Math.ceil(daysLeft / (1000 * 60 * 60 * 24));
+    if (task.due === "") {
+        dateIndicator.textContent = ("");
+    } else {
+        dateIndicator.textContent = (daysLeft + " days left");
+    }
 }
 
 function checkPriority(task, priorityIndicator) {
