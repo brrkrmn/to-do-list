@@ -32,21 +32,33 @@ function addEventListenerToDeleteFormButton() {
     })
 }
 
-function addEventListenerToEditTask() {
+function addEventListenerToEditTask(task) {
     const taskElement = document.querySelectorAll(".task");
     console.log(taskElement);
     for (let i = 0; i < taskElement.length; i++) {
         taskElement[i].addEventListener("click", () => {
             closeEditorForm();
-            openEditModal();
+            openEditModal(task);
             closeEditModal();
         });
     }
 }
 
-function openEditModal(){
+function openEditModal(task){
     const modal = document.querySelector(".modal");
     modal.style.display = "block";
+
+    const title = document.querySelector(".modal-title");
+    title.textContent = task.title;
+
+    const description = document.querySelector(".modal-description");
+    description.textContent = task.description;
+
+    const priority = document.querySelector(".modal-select");
+    priority.value = task.priority;
+    
+    //const date = document.querySelector(".modal-due");
+    //date.value = (task.due.split("-").reverse().join("-").replaceAll("-", "."))
 }
 
 function closeEditModal(){
@@ -72,6 +84,7 @@ function createNewTask() {
     const description = document.getElementById("task-description").value;
     const task = new Task(title, due, priority, description);
     createTaskItem(task);
+    console.log(task);
 }
 
 function createTaskItem(task) {
@@ -105,7 +118,7 @@ function createTaskItem(task) {
     addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
-    addEventListenerToEditTask();
+    addEventListenerToEditTask(task);
 }
 
 function findDaysLeft(task, dateIndicator) {
