@@ -38,8 +38,23 @@ function addEventListenerToEditTask() {
     for (let i = 0; i < taskElement.length; i++) {
         taskElement[i].addEventListener("click", () => {
             closeEditorForm();
-        })
+            openEditModal();
+        });
     }
+}
+
+function openEditModal(){
+    const modal = document.querySelector(".modal");
+    modal.style.display = "block";
+}
+
+function closeEditModal(){
+    const closeModalButton = document.querySelector(".close-modal.button");
+    closeModalButton.addEventListener("click", () => {
+        const modal = document.querySelector(".modal");
+        modal.style.display = "none";
+    })
+
 }
 
 function Task(title, due, priority, description) {
