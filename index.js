@@ -39,6 +39,7 @@ function addEventListenerToEditTask() {
         taskElement[i].addEventListener("click", () => {
             closeEditorForm();
             openEditModal();
+            closeEditModal();
         });
     }
 }
@@ -49,7 +50,7 @@ function openEditModal(){
 }
 
 function closeEditModal(){
-    const closeModalButton = document.querySelector(".close-modal.button");
+    const closeModalButton = document.querySelector(".close-modal-button");
     closeModalButton.addEventListener("click", () => {
         const modal = document.querySelector(".modal");
         modal.style.display = "none";
