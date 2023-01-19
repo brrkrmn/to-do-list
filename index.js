@@ -1,20 +1,19 @@
+function openEditorForm() {
+    const form = document.querySelector(".editor-form");
+    form.style.visibility = "visible";
+}
+
+function closeEditorForm() {
+    const form = document.querySelector(".editor-form");
+    form.reset();
+    form.style.visibility = "hidden";
+}
+
 function addEventListenerToAddTaskButton() {
     const addTaskButton = document.querySelector(".add-task-button");
     addTaskButton.addEventListener("click", () => {
-        openEditor()
+        openEditorForm()
     })
-}
-
-function openEditor() {
-    const editor = document.querySelector(".editor");
-    editor.style.visibility = "visible";
-}
-
-function closeEditor() {
-    const editor = document.querySelector(".editor");
-    const form = document.querySelector(".editor-form");
-    form.reset();
-    editor.style.visibility = "hidden";
 }
 
 function addEventListenerToSaveFormButton() {
@@ -22,15 +21,25 @@ function addEventListenerToSaveFormButton() {
     saveFormButton.addEventListener("click", (e) => {
         e.preventDefault();
         createNewTask();
-        closeEditor();
+        closeEditorForm();
     })
 }
 
 function addEventListenerToDeleteFormButton() {
     const deleteFormButton = document.querySelector(".delete-form-button");
     deleteFormButton.addEventListener("click", () => {
-        closeEditor();
+        closeEditorForm();
     })
+}
+
+function addEventListenerToEditTask() {
+    const taskElement = document.querySelectorAll(".task");
+    console.log(taskElement);
+    for (let i = 0; i < taskElement.length; i++) {
+        taskElement[i].addEventListener("click", () => {
+            closeEditorForm();
+        })
+    }
 }
 
 function Task(title, due, priority, description) {
@@ -68,9 +77,10 @@ function createTaskItem(task) {
 
     const dateIndicator = document.createElement("div");
     dateIndicator.classList.add("date-indicator");
-    findDaysLeft(task, dateIndicator);
 
     const priorityIndicator = document.createElement("button");
+    
+    findDaysLeft(task, dateIndicator);
     checkPriority(task, priorityIndicator);
 
     taskItem.append(checkbox, taskElement, deleteTaskButton);
@@ -79,6 +89,7 @@ function createTaskItem(task) {
     addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
+    addEventListenerToEditTask();
 }
 
 function findDaysLeft(task, dateIndicator) {
@@ -104,7 +115,6 @@ function checkPriority(task, priorityIndicator) {
 }
 
 function addTaskToTaskBox(taskTitleIndicator, task) {
-    console.log(task);
     taskTitleIndicator.textContent = task.title;
 }
 

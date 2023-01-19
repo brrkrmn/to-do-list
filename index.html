@@ -64,6 +64,35 @@
                 </div>
             </form>
         </div>
+        
+        <div class="modal">
+            <div class="modal-container">
+                <div class="modal-head">
+                    <div class="modal-title">Title</div>
+                    <button class="close-modal-button"></button>
+                </div>
+    
+                <div class="modal-description">s</div>
+                <div class="modal-bottom">
+                    <div class="modal-buttons">
+                        <div class="modal-priority">
+                            <label for="task-priority" class="modal-priority-text">Priority:</label>
+                            <select name="task-priority" id="task-priority">
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <div class="modal-due">
+                            <label for="task-due">Due Date:</label>
+                            <input type="date" id="task-due">
+                        </div>
+                    </div>
+                    <button class="modal-save-button">Save Changes</button>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <script src="./index.js"></script>
