@@ -231,11 +231,54 @@ function changeTaskInfo(taskObject, thisTask) {
         taskObject.priority = priority;
         checkPriority(taskObject, thisTask);
 
-        //close modal//
+        //close modal
         const modal = document.querySelector(".modal");
         modal.style.display = "none";
     })
 }
 
+//projects//
+function openProject() {
+    addEventListenerToAllButton();
+    addEventListenerToTodayButton();
+    addEventListenerToDoneButton();
+}
+
+function addEventListenerToAllButton() {
+    const allButton = document.querySelector(".all-button");
+    allButton.addEventListener("click", () => {
+        const tasks = document.querySelectorAll(".task-item");
+        for (let i = 0; i < tasks.length; i++) {
+            tasks[i].style.display = "flex";
+        }
+    })
+}
+
+function addEventListenerToTodayButton() {
+    const todayButton = document.querySelector(".today-button");
+    todayButton.addEventListener("click", () => {
+        const tasks = document.querySelectorAll(".task-item");
+        for (let i = 0; i < tasks.length; i++) {
+            if (tasks[i].children[1].children[2].textContent !== "0 days left") {
+                tasks[i].style.display = "none";
+            }
+        }
+    })
+}
+
+function addEventListenerToDoneButton() {
+    const doneButton = document.querySelector(".done-button");
+    doneButton.addEventListener("click", () => {
+        const tasks = document.querySelectorAll(".task-item");
+        for (let i = 0; i < tasks.length; i++) {
+            if (!tasks[i].children[0].classList.contains("checkbox-complete")) {
+                tasks[i].style.display = "none";
+            }
+        }
+    })
+}
+
+
 const tasks = [];
 addTask();
+openProject();
