@@ -87,7 +87,7 @@ function createTaskItem() {
     taskElement.append(taskTitleIndicator, priorityIndicator, dateIndicator);
 
     addEventListenerToDeleteTaskButton(deleteTaskButton);
-    addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
+    addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement, taskItem);
     editTask();
 }
 
@@ -143,7 +143,7 @@ function addEventListenerToDeleteTaskButton(deleteTaskButton) {
     })
 }
 
-function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement) {
+function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement, taskItem) {
     if (checkbox) {
         checkbox.addEventListener("click", () => {
             if (!checkbox.classList.contains("checkbox-complete")) {
@@ -247,6 +247,11 @@ function openProject() {
 function addEventListenerToAllButton() {
     const allButton = document.querySelector(".all-button");
     allButton.addEventListener("click", () => {
+        const addTaskButton = document.querySelector(".add-task-button");
+        addTaskButton.style.display = "block";
+
+        const projectTitle = document.querySelector(".task-container-title");
+        projectTitle.textContent = "All";
         const tasks = document.querySelectorAll(".task-item");
         for (let i = 0; i < tasks.length; i++) {
             tasks[i].style.display = "flex";
@@ -257,8 +262,14 @@ function addEventListenerToAllButton() {
 function addEventListenerToTodayButton() {
     const todayButton = document.querySelector(".today-button");
     todayButton.addEventListener("click", () => {
+        const addTaskButton = document.querySelector(".add-task-button");
+        addTaskButton.style.display = "none";
+
+        const projectTitle = document.querySelector(".task-container-title");
+        projectTitle.textContent = "Today";
         const tasks = document.querySelectorAll(".task-item");
         for (let i = 0; i < tasks.length; i++) {
+            tasks[i].style.display = "flex";
             if (tasks[i].children[1].children[2].textContent !== "0 days left") {
                 tasks[i].style.display = "none";
             }
@@ -269,15 +280,20 @@ function addEventListenerToTodayButton() {
 function addEventListenerToDoneButton() {
     const doneButton = document.querySelector(".done-button");
     doneButton.addEventListener("click", () => {
+        const addTaskButton = document.querySelector(".add-task-button");
+        addTaskButton.style.display = "none";  
+
+        const projectTitle = document.querySelector(".task-container-title");
+        projectTitle.textContent = "Done";
         const tasks = document.querySelectorAll(".task-item");
         for (let i = 0; i < tasks.length; i++) {
+            tasks[i].style.display = "flex";
             if (!tasks[i].children[0].classList.contains("checkbox-complete")) {
                 tasks[i].style.display = "none";
             }
         }
     })
 }
-
 
 const tasks = [];
 addTask();
