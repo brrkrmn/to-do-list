@@ -1,16 +1,12 @@
+function addTask() {
+    addEventListenerToAddTaskButton();
+    addEventListenerToDeleteFormButton();
+    addEventListenerToSaveFormButton();
+    editTask();
+}
+
 //form actions//
-function openEditorForm() {
-    const form = document.querySelector(".editor-form");
-    form.style.visibility = "visible";
-}
-
-function closeEditorForm() {
-    const form = document.querySelector(".editor-form");
-    form.reset();
-    form.style.visibility = "hidden";
-}
-
-function addEventListenerToAddTaskButton() {
+function addEventListenerToAddTaskButton() { 
     const addTaskButton = document.querySelector(".add-task-button");
     addTaskButton.addEventListener("click", () => {
         openEditorForm()
@@ -33,9 +29,18 @@ function addEventListenerToDeleteFormButton() {
     })
 }
 
-//creating new task//
-const tasks = [];
+function openEditorForm() {
+    const form = document.querySelector(".editor-form");
+    form.style.visibility = "visible";
+}
 
+function closeEditorForm() {
+    const form = document.querySelector(".editor-form");
+    form.reset();
+    form.style.visibility = "hidden";
+}
+
+//creating new task//
 function Task(title, due, priority, description) {
     this.title = title,
     this.due = due,
@@ -45,18 +50,20 @@ function Task(title, due, priority, description) {
 }
 
 function createNewTask() {
+    //create new object
     const title = document.getElementById("task-name").value;
     const due = document.getElementById("task-due").value;
     const priority = document.getElementById("task-priority").value;
     const description = document.getElementById("task-description").value;
     const task = new Task(title, due, priority, description);
-    createTaskItem(task);
+
+    createTaskItem(); //add the object to DOM
+    writeInfoToTaskItem(task); //fill the DOM element with task info
 }
 
-function createTaskItem(task) {
+function createTaskItem() {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
-    document.querySelector(".task-box").appendChild(taskItem);
 
     const checkbox = document.createElement("button");
     checkbox.classList.add("checkbox");
@@ -74,31 +81,33 @@ function createTaskItem(task) {
     dateIndicator.classList.add("date-indicator");
 
     const priorityIndicator = document.createElement("button");
-    
-    findDaysLeft(task, dateIndicator);
-    checkPriority(task, priorityIndicator);
+    priorityIndicator.classList.add("priority-indicator");
 
+    document.querySelector(".task-box").appendChild(taskItem);
     taskItem.append(checkbox, taskElement, deleteTaskButton);
     taskElement.append(taskTitleIndicator, priorityIndicator, dateIndicator);
 
-    addTaskToTaskBox(taskTitleIndicator, task);
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
-    editTask();
 }
 
-function addTask() {
-    addEventListenerToAddTaskButton();
-    addEventListenerToDeleteFormButton();
-    addEventListenerToSaveFormButton();
+//display task information on task element//
+function writeInfoToTaskItem(task) {
+    const lastTask = document.querySelectorAll(".task-item:last-child");
+    addTaskTitle(task, lastTask);
+    findDaysLeft(task, lastTask);
+    checkPriority(task, lastTask);
 }
 
-//display task information on page//
-function addTaskToTaskBox(taskTitleIndicator, task) {
-    taskTitleIndicator.textContent = task.title;
+function addTaskTitle(task, lastTask) {
+    const taskTitleIndicator = lastTask[0].querySelector(".task-title-indicator");
+    if (taskTitleIndicator) {
+        taskTitleIndicator.textContent = task.title;
+    }
 }
 
-function findDaysLeft(task, dateIndicator) {
+function findDaysLeft(task, lastTask) {
+    const dateIndicator = lastTask[0].querySelector(".date-indicator");
     const currentDate = new Date();
     const dueDate = new Date(task.due);
     let daysLeft = dueDate.getTime() - currentDate.getTime();
@@ -110,13 +119,16 @@ function findDaysLeft(task, dateIndicator) {
     }
 }
 
-function checkPriority(task, priorityIndicator) {
-    if (task.priority === "low") {
-        priorityIndicator.classList.add("priority-indicator-low");
-    } else if (task.priority === "medium") {
-        priorityIndicator.classList.add("priority-indicator-medium");
-    } else {
-        priorityIndicator.classList.add("priority-indicator-high");
+function checkPriority(task, lastTask) {
+    const priorityIndicator = lastTask[0].querySelector(".priority-indicator");
+    if (priorityIndicator) {
+        if (task.priority === "low") {
+            priorityIndicator.classList.add("priority-indicator-low");
+        } else if (task.priority === "medium") {
+            priorityIndicator.classList.add("priority-indicator-medium");
+        } else {
+            priorityIndicator.classList.add("priority-indicator-high");
+        }
     }
 }
 
@@ -128,17 +140,19 @@ function addEventListenerToDeleteTaskButton(deleteTaskButton) {
 }
 
 function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement) {
-    checkbox.addEventListener("click", () => {
-        if (!checkbox.classList.contains("checkbox-complete")) {
-            checkbox.classList.add("checkbox-complete");
-            taskTitleIndicator.classList.add("title-complete");
-            taskElement.classList.add("task-complete");
-        } else {
-            checkbox.classList.remove("checkbox-complete");
-            taskTitleIndicator.classList.remove("title-complete");
-            taskElement.classList.remove("task-complete");
-        }
-    })
+    if (checkbox) {
+        checkbox.addEventListener("click", () => {
+            if (!checkbox.classList.contains("checkbox-complete")) {
+                checkbox.classList.add("checkbox-complete");
+                taskTitleIndicator.classList.add("title-complete");
+                taskElement.classList.add("task-complete");
+            } else {
+                checkbox.classList.remove("checkbox-complete");
+                taskTitleIndicator.classList.remove("title-complete");
+                taskElement.classList.remove("task-complete");
+            }
+        })
+    }
 }
 
 //edit task//
@@ -161,6 +175,7 @@ function addEventListenerToEditTask() {
 function findTaskObject(title) {
     const taskObject = tasks.find(obj => obj.title === title);
     openEditModal(taskObject);
+    changeTaskInfo(taskObject);
 }
 
 function openEditModal(taskObject){
@@ -176,10 +191,25 @@ function openEditModal(taskObject){
     const priority = document.querySelector(".modal-select");
     priority.value = taskObject.priority;
     
-    //date does not work//
-    console.log(taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
-    const date = document.querySelector(".modal-due");
-    date.value = (taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
+    //console.log(taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
+    //const date = document.querySelector(".modal-due");
+    //date.value = (taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
+}
+
+function changeTaskInfo(taskObject) {
+    const saveModalButton = document.querySelector(".modal-save-button");
+    saveModalButton.addEventListener("click", () => {
+        const title = document.querySelector(".modal-title").textContent;
+        taskObject.title = title;
+
+        const description = document.querySelector(".modal-description");
+        taskObject.description = description;
+
+        //close modal//
+        const modal = document.querySelector(".modal");
+        modal.style.display = "none";
+        
+    })
 }
 
 function closeEditModal(){
@@ -191,4 +221,5 @@ function closeEditModal(){
 }
 
 
+const tasks = [];
 addTask();
