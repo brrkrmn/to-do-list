@@ -2,7 +2,6 @@ function addTask() {
     addEventListenerToAddTaskButton();
     addEventListenerToDeleteFormButton();
     addEventListenerToSaveFormButton();
-    editTask();
 }
 
 //form actions//
@@ -89,25 +88,27 @@ function createTaskItem() {
 
     addEventListenerToDeleteTaskButton(deleteTaskButton);
     addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement);
+    editTask();
 }
 
 //display task information on task element//
 function writeInfoToTaskItem(task) {
-    const lastTask = document.querySelectorAll(".task-item:last-child");
+    const last = document.querySelectorAll(".task-item:last-child");
+    const lastTask = last[0]
     addTaskTitle(task, lastTask);
     findDaysLeft(task, lastTask);
     checkPriority(task, lastTask);
 }
 
 function addTaskTitle(task, lastTask) {
-    const taskTitleIndicator = lastTask[0].querySelector(".task-title-indicator");
+    const taskTitleIndicator = lastTask.querySelector(".task-title-indicator");
     if (taskTitleIndicator) {
         taskTitleIndicator.textContent = task.title;
     }
 }
 
 function findDaysLeft(task, lastTask) {
-    const dateIndicator = lastTask[0].querySelector(".date-indicator");
+    const dateIndicator = lastTask.querySelector(".date-indicator");
     const currentDate = new Date();
     const dueDate = new Date(task.due);
     let daysLeft = dueDate.getTime() - currentDate.getTime();
@@ -120,13 +121,16 @@ function findDaysLeft(task, lastTask) {
 }
 
 function checkPriority(task, lastTask) {
-    const priorityIndicator = lastTask[0].querySelector(".priority-indicator");
+    const priorityIndicator = lastTask.querySelector(".priority-indicator");
     if (priorityIndicator) {
         if (task.priority === "low") {
+            priorityIndicator.classList.remove("priority-indicator-high", "priority-indicator-medium");
             priorityIndicator.classList.add("priority-indicator-low");
         } else if (task.priority === "medium") {
+            priorityIndicator.classList.remove("priority-indicator-high", "priority-indicator-low");
             priorityIndicator.classList.add("priority-indicator-medium");
         } else {
+            priorityIndicator.classList.remove("priority-indicator-low", "priority-indicator-medium");
             priorityIndicator.classList.add("priority-indicator-high");
         }
     }
@@ -157,31 +161,44 @@ function addEventListenerToCheckbox(checkbox, taskTitleIndicator, taskElement) {
 
 //edit task//
 function editTask() {
-    addEventListenerToEditTask();
+    addEventListenerToEditTask(); //modal opens as the task is clicked
+    closeModal();
+}
+
+function openModal(){
+    const modal = document.querySelector(".modal");
+    modal.style.display = "block";
+}
+
+function closeModal(){
+    const closeModalButton = document.querySelector(".close-modal-button");
+    closeModalButton.addEventListener("click", () => {
+        const modal = document.querySelector(".modal");
+        modal.style.display = "none";
+    })
 }
 
 function addEventListenerToEditTask() {
     const taskElement = document.querySelectorAll(".task");
     for (let i = 0; i < taskElement.length; i++) {
         taskElement[i].addEventListener("click", () => {
+            const thisTask = taskElement[i];
+            console.log(thisTask);
             closeEditorForm();
-            const title = taskElement[i].querySelector(".task-title-indicator").textContent;
-            findTaskObject(title);
-            closeEditModal();
+            openModal();
+            findTaskObject(thisTask); 
         });
     }
 }
 
-function findTaskObject(title) {
+function findTaskObject(thisTask) {
+    const title = thisTask.querySelector(".task-title-indicator").textContent;
     const taskObject = tasks.find(obj => obj.title === title);
-    openEditModal(taskObject);
-    changeTaskInfo(taskObject);
+    writeTaskInfoToModal(taskObject); //task info is displayed on modal
+    changeTaskInfo(taskObject, thisTask);
 }
 
-function openEditModal(taskObject){
-    const modal = document.querySelector(".modal");
-    modal.style.display = "block";
-
+function writeTaskInfoToModal(taskObject) {
     const title = document.querySelector(".modal-title");
     title.textContent = taskObject.title;
 
@@ -190,36 +207,35 @@ function openEditModal(taskObject){
 
     const priority = document.querySelector(".modal-select");
     priority.value = taskObject.priority;
-    
-    //console.log(taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
-    //const date = document.querySelector(".modal-due");
-    //date.value = (taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
+
+    const date = document.querySelector("#modal-due");
+    date.value = (taskObject.due.split("-").reverse().join("-").replaceAll("-", "."));
 }
 
-function changeTaskInfo(taskObject) {
+function changeTaskInfo(taskObject, thisTask) {
     const saveModalButton = document.querySelector(".modal-save-button");
     saveModalButton.addEventListener("click", () => {
+
         const title = document.querySelector(".modal-title").textContent;
         taskObject.title = title;
+        addTaskTitle(taskObject, thisTask);
 
-        const description = document.querySelector(".modal-description");
+        const description = document.querySelector(".modal-description").textContent;
         taskObject.description = description;
+
+        const due = document.querySelector("#modal-due").value;
+        taskObject.due = due;
+        findDaysLeft(taskObject, thisTask);
+
+        const priority = document.querySelector(".modal-select").value;
+        taskObject.priority = priority;
+        checkPriority(taskObject, thisTask);
 
         //close modal//
         const modal = document.querySelector(".modal");
         modal.style.display = "none";
-        
     })
 }
-
-function closeEditModal(){
-    const closeModalButton = document.querySelector(".close-modal-button");
-    closeModalButton.addEventListener("click", () => {
-        const modal = document.querySelector(".modal");
-        modal.style.display = "none";
-    })
-}
-
 
 const tasks = [];
 addTask();
