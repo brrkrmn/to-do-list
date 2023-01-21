@@ -40,11 +40,12 @@ function closeEditorForm() {
 }
 
 //creating new task//
-function Task(title, due, priority, description) {
+function Task(title, due, priority, description,project) {
     this.title = title,
     this.due = due,
     this.priority = priority,
     this.description = description,
+    this.project = project,
     tasks.push(this);
 }
 
@@ -54,7 +55,8 @@ function createNewTask() {
     const due = document.getElementById("task-due").value;
     const priority = document.getElementById("task-priority").value;
     const description = document.getElementById("task-description").value;
-    const task = new Task(title, due, priority, description);
+    const project = document.querySelector(".task-container-title").textContent;
+    const task = new Task(title, due, priority, description, project);
 
     createTaskItem(); //add the object to DOM
     writeInfoToTaskItem(task); //fill the DOM element with task info
@@ -241,7 +243,8 @@ function changeTaskInfo(taskObject, thisTask) {
 function openProject() {
     addEventListenerToAllButton();
     addEventListenerToTodayButton();
-    addEventListenerToDoneButton();
+    addEventListenerToDoneButton()
+    addEventListenerToAddProjectButton();
 }
 
 function addEventListenerToAllButton() {
@@ -294,6 +297,42 @@ function addEventListenerToDoneButton() {
         }
     })
 }
+
+function addEventListenerToAddProjectButton() {
+    const addProjectButton = document.querySelector(".add-project-button");
+    addProjectButton.addEventListener("click", () => {
+        const newProject = document.createElement("button");
+        document.querySelector(".sidebar-project-container").appendChild(newProject);
+        newProject.classList.add("sidebar-item", "project");
+        newProject.textContent = "New Project";
+        newProject.contentEditable = "true";
+        addEventListenerToNewProject(newProject)
+    })
+}
+
+function addEventListenerToNewProject(newProject) {
+    newProject.addEventListener("click", () => {
+        document.querySelector(".add-task-button").style.display = "block";
+
+        const title = document.querySelector(".task-container-title");
+        title.textContent = newProject.textContent;
+
+        const taskItems = document.querySelectorAll(".task-item");
+        for (let i = 0; i < tasks.length; i++) {
+            const taskItem = taskItems[i];
+            const title = document.querySelector(".task-container-title").textContent;
+            
+            const taskTitle = taskItem.querySelector(".task-title-indicator").textContent;
+            const taskObject = tasks.find(obj => obj.title === taskTitle);
+            if (taskObject.project !== title) {
+                taskItem.style.display = "none";
+            } else {
+                taskItem.style.display = "flex";
+            }
+        }
+    })
+}
+
 
 const tasks = [];
 addTask();
